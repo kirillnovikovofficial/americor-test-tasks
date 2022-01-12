@@ -1,6 +1,8 @@
 <?php
 
-namespace app\models;
+namespace app\models\schema\events;
+
+use app\models\User;
 
 use Yii;
 use yii\db\ActiveQuery;
@@ -23,12 +25,6 @@ use yii\db\ActiveRecord;
  */
 class Fax extends ActiveRecord
 {
-    const DIRECTION_INCOMING = 0;
-    const DIRECTION_OUTGOING = 1;
-
-    const TYPE_POA_ATC = 'poa_atc';
-    const TYPE_REVOCATION_NOTICE = 'revocation_notice';
-
     /**
      * @inheritdoc
      */
@@ -65,18 +61,12 @@ class Fax extends ActiveRecord
         ];
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return array
-     */
-    public static function getTypeTexts()
+    public static function getTypeTexts(): array
     {
         return [
             self::TYPE_POA_ATC => Yii::t('app', 'POA/ATC'),
@@ -84,10 +74,7 @@ class Fax extends ActiveRecord
         ];
     }
 
-    /**
-     * @return mixed|string
-     */
-    public function getTypeText()
+    public function getTypeText(): string
     {
         return self::getTypeTexts()[$this->type] ?? $this->type;
     }

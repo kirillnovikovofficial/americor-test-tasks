@@ -1,6 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\models\schema\events;
+
+use app\models\Customer;
+use app\models\User;
 
 use Yii;
 use yii\db\ActiveQuery;
@@ -148,22 +151,5 @@ class Task extends ActiveRecord
     public function getStateText()
     {
         return self::getStateTexts()[$this->state] ?? $this->state;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function getIsOverdue()
-    {
-        return $this->status !== self::STATUS_DONE && strtotime($this->due_date) < time();
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsDone()
-    {
-        return $this->status == self::STATUS_DONE;
     }
 }
