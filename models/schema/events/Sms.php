@@ -80,26 +80,17 @@ class Sms extends ActiveRecord
         ];
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getCustomer()
+    public function getCustomer(): ActiveQuery
     {
         return $this->hasOne(Customer::class, ['id' => 'customer_id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return array
-     */
-    public static function getStatusTexts()
+    public static function getStatusTexts(): array
     {
         return [
             Incoming::STATUS_NEW => Yii::t('app', 'New'),
@@ -113,27 +104,12 @@ class Sms extends ActiveRecord
         ];
     }
 
-    /**
-     * @param $value
-     * @return mixed
-     */
-    public static function getStatusTextByValue($value)
+    public static function getStatusTextByValue(int $status): string
     {
-        return self::getStatusTexts()[$value] ?? $value;
+        return self::getStatusTexts()[$status] ?? $status;
     }
 
-    /**
-     * @return mixed|string
-     */
-    public function getStatusText()
-    {
-        return self::getStatusTextByValue($this->status);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getDirectionTexts()
+    public static function getDirectionTexts(): array
     {
         return [
             Incoming::DIRECTION_INCOMING => Yii::t('app', 'Incoming'),
@@ -141,20 +117,8 @@ class Sms extends ActiveRecord
         ];
     }
 
-    /**
-     * @param $value
-     * @return mixed
-     */
-    public static function getDirectionTextByValue($value)
+    public static function getDirectionTextByValue(int $value): string
     {
         return self::getDirectionTexts()[$value] ?? $value;
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getDirectionText()
-    {
-        return self::getDirectionTextByValue($this->direction);
     }
 }

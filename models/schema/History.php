@@ -89,18 +89,12 @@ class History extends ActiveRecord
         return $this->hasOne(Customer::class, ['id' => 'customer_id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return array
-     */
-    public static function getEventTexts()
+    public static function getEventTexts(): array
     {
         return [
             HistoryState::EVENT_CREATED_TASK => Yii::t('app', 'Task created'),
@@ -124,10 +118,5 @@ class History extends ActiveRecord
     public static function getEventTextByEvent(string $event): string
     {
         return static::getEventTexts()[$event] ?? $event;
-    }
-
-    public function getEventText(): string
-    {
-        return static::getEventTextByEvent($this->event);
     }
 }

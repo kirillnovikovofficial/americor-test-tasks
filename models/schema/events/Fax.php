@@ -74,10 +74,4 @@ class Fax extends ActiveRecord
             FaxState::TYPE_REVOCATION_NOTICE => Yii::t('app', 'Revocation'),
         ];
     }
-
-    public function getTypeText(): string
-    {
-        return self::getTypeTexts()[$this->type] ?? $this->type;
-    }
-
 }

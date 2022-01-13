@@ -35,4 +35,9 @@ class History extends HistorySchema
     {
         return $this->getDetailChangedAttribute($attribute)['new'] ?? null;
     }
+
+    public function getEventText(): string
+    {
+        return static::getEventTextByEvent($this->event);
+    }
 }

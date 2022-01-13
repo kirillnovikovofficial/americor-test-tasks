@@ -30,12 +30,11 @@ class ItemFactory
     public static function create(History $model): ItemInterface
     {
         $objectName = self::ALIASES[$model->event] ?? null;
-        if ($objectName === null) {
+        $class = __NAMESPACE__ . '\\models\\' . $objectName;
+        if ($objectName === null || !class_exists($class)) {
             return new Base($model);
         }
-
-        $class = __NAMESPACE__ . '\\models\\' . $objectName;
-
+        
         return new $class($model);
     }
 }

@@ -4,6 +4,7 @@ namespace app\models\schema\events;
 
 use app\models\Customer;
 use app\models\User;
+use app\models\events\states\Task as TaskState;
 
 use Yii;
 use yii\db\ActiveQuery;
@@ -38,14 +39,6 @@ use yii\db\ActiveRecord;
  */
 class Task extends ActiveRecord
 {
-    const STATUS_NEW = 0;
-    const STATUS_DONE = 1;
-    const STATUS_CANCEL = 3;
-
-    const STATE_INBOX = 'inbox';
-    const STATE_DONE = 'done';
-    const STATE_FUTURE = 'future';
-
     /**
      * @inheritdoc
      */
@@ -88,68 +81,31 @@ class Task extends ActiveRecord
         ];
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getCustomer()
+    public function getCustomer(): ActiveQuery
     {
         return $this->hasOne(Customer::class, ['id' => 'customer_id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return array
-     */
-    public static function getStatusTexts()
+    public static function getStatusTexts(): array
     {
         return [
-            self::STATUS_NEW => Yii::t('app', 'New'),
-            self::STATUS_DONE => Yii::t('app', 'Complete'),
-            self::STATUS_CANCEL => Yii::t('app', 'Cancel'),
+            TaskState::STATUS_NEW => Yii::t('app', 'New'),
+            TaskState::STATUS_DONE => Yii::t('app', 'Complete'),
+            TaskState::STATUS_CANCEL => Yii::t('app', 'Cancel'),
         ];
     }
 
-    /**
-     * @param $value
-     * @return int|mixed
-     */
-    public function getStatusTextByValue($value)
-    {
-        return self::getStatusTexts()[$value] ?? $value;
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getStatusText()
-    {
-        return self::getStatusTextByValue($this->status);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getStateTexts()
+    public static function getStateTexts(): array
     {
         return [
-            self::STATE_INBOX => Yii::t('app', 'Inbox'),
-            self::STATE_DONE => Yii::t('app', 'Done'),
-            self::STATE_FUTURE => Yii::t('app', 'Future')
+            TaskState::STATE_INBOX => Yii::t('app', 'Inbox'),
+            TaskState::STATE_DONE => Yii::t('app', 'Done'),
+            TaskState::STATE_FUTURE => Yii::t('app', 'Future')
         ];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStateText()
-    {
-        return self::getStateTexts()[$this->state] ?? $this->state;
     }
 }

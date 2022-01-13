@@ -11,4 +11,14 @@ class Sms extends SmsSchema
     {
         return $this->direction === IncomingSmsState::DIRECTION_INCOMING;
     }
+
+    public function getStatusText(): string
+    {
+        return self::getStatusTextByValue($this->status);
+    }
+
+    public function getDirectionText(): string
+    {
+        return self::getDirectionTextByValue($this->direction);
+    }
 }

@@ -9,6 +9,11 @@ use Yii;
 
 class Call extends CallSchema
 {
+    public function getFullDirectionText(): string
+    {
+        return (string) (self::getFullDirectionTexts()[$this->direction] ?? $this->direction);
+    }
+
     public function isAnswered(): bool
     {
         return $this->status == CallState::STATUS_ANSWERED;
@@ -28,7 +33,7 @@ class Call extends CallSchema
     /**
      * @return mixed|string
      */
-    public function getTotalStatusText()
+    public function getTotalStatusText(): string
     {
         if ($this->status == CallState::STATUS_NO_ANSWERED) {
            if ($this->direction == CallState::DIRECTION_INCOMING) {
@@ -62,10 +67,5 @@ class Call extends CallSchema
     public function getDurationText(): string
     {
         return Yii::$app->getFormatter()->asTime(CallState::$duration);
-
-        if (CallState::$duration === null) {
-            return '00:00';
-        }
-        return CallState::$duration >= 3600 ? gmdate("H:i:s", CallState::$duration) : gmdate("i:s", CallState::$duration);
     }
 }

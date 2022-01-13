@@ -98,9 +98,4 @@ class Call extends ActiveRecord
             CallState::DIRECTION_OUTGOING => Yii::t('app', 'Outgoing Call'),
         ];
     }
-
-    public function getFullDirectionText(): string
-    {
-        return (string) (self::getFullDirectionTexts()[$this->direction] ?? $this->direction);
-    }
 }
