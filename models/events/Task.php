@@ -2,7 +2,7 @@
 
 namespace app\models\events;
 
-use app\models\events\schema\Task as TaskSchema;
+use app\models\schema\events\Task as TaskSchema;
 
 class Task extends TaskSchema
 {

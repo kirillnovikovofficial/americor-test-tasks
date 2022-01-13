@@ -2,13 +2,24 @@
 
 namespace app\models\events;
 
-use app\models\events\schema\Call as CallSchema;
+use app\models\schema\events\Call as CallSchema;
 use app\models\events\states\Call as CallState;
 
 use Yii;
 
 class Call extends CallSchema
 {
+    public function isAnswered(): bool
+    {
+        return $this->status == CallState::STATUS_ANSWERED;
+    }
+
+    public function isIncoming(): bool
+    {
+        return $this->direction == CallState::DIRECTION_INCOMING;
+    }
+
+
     public function getClient_phone(): string
     {
         return $this->direction == CallState::DIRECTION_INCOMING ? $this->phone_from : $this->phone_to;

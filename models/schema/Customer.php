@@ -68,7 +68,7 @@ class Customer extends ActiveRecord
         ];
     }
 
-    public static function getTypeTextByType(string $type): string
+    public static function getTypeTextByType(?string $type): ?string
     {
         return self::getTypeTexts()[$type] ?? $type;
     }

@@ -2,7 +2,7 @@
 
 namespace app\models\events;
 
-use app\models\events\schema\Fax as FaxSchema;
+use app\models\schema\events\Fax as FaxSchema;
 
 class Fax extends FaxSchema
 {

@@ -2,9 +2,10 @@
 
 namespace app\models\schema;
 
-use app\models\schema\events\Call;
-use app\models\schema\events\Sms;
-use app\models\schema\events\Task;
+use app\models\events\Call;
+use app\models\events\Fax;
+use app\models\events\Sms;
+use app\models\events\Task;
 use app\models\states\History as HistoryState;
 use app\models\traits\ObjectNameTrait;
 use Yii;
@@ -32,6 +33,7 @@ use yii\db\ActiveRecord;
  * @property Task $task
  * @property Sms $sms
  * @property Call $call
+ * @property Fax $fax
  */
 class History extends ActiveRecord
 {

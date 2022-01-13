@@ -3,6 +3,7 @@
 namespace app\models\schema\events;
 
 use app\models\User;
+use app\models\events\states\Fax as FaxState;
 
 use Yii;
 use yii\db\ActiveQuery;
@@ -69,8 +70,8 @@ class Fax extends ActiveRecord
     public static function getTypeTexts(): array
     {
         return [
-            self::TYPE_POA_ATC => Yii::t('app', 'POA/ATC'),
-            self::TYPE_REVOCATION_NOTICE => Yii::t('app', 'Revocation'),
+            FaxState::TYPE_POA_ATC => Yii::t('app', 'POA/ATC'),
+            FaxState::TYPE_REVOCATION_NOTICE => Yii::t('app', 'Revocation'),
         ];
     }
 
