@@ -34,7 +34,7 @@ class ItemFactory
         if ($objectName === null || !class_exists($class)) {
             return new Base($model);
         }
-        
+
         return new $class($model);
     }
 }
