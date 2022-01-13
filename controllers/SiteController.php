@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\components\export\AbstractFactory;
 use app\models\search\HistorySearch;
 use Yii;
+use yii\db\Query;
 use yii\web\Controller;
 
 class SiteController extends Controller
@@ -39,11 +41,10 @@ class SiteController extends Controller
     public function actionExport($exportType)
     {
         $model = new HistorySearch();
+        /** @var Query $query */
+        $query = $model->getQuery(Yii::$app->request->queryParams);
+        $exportFileLink = AbstractFactory::create($exportType)->export($query);
 
-        return $this->render('export', [
-            'dataProvider' => $model->search(Yii::$app->request->queryParams),
-            'exportType' => $exportType,
-            'model' => $model
-        ]);
+        return $this->redirect($exportFileLink);
     }
 }

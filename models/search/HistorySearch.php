@@ -5,6 +5,7 @@ namespace app\models\search;
 use app\models\History;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\db\Query;
 
 /**
  * HistorySearch represents the model behind the search form about `app\models\History`.
@@ -73,5 +74,16 @@ class HistorySearch extends History
         ]);
 
         return $dataProvider;
+    }
+
+    public function getQuery($params): Query
+    {
+        /** @var Query $query */
+        $query = $this->search($params)->query->orderBy([
+            'ins_ts' => SORT_DESC,
+            'id' => SORT_DESC
+        ]);
+
+        return $query;
     }
 }

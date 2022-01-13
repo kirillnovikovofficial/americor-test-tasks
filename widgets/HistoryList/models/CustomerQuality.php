@@ -21,4 +21,11 @@ class CustomerQuality extends Base
             'newValue' => Customer::getTypeTextByType($historySearch->getDetailNewValue('quality')),
         ];
     }
+
+    public function getBodyText(): string
+    {
+        return "{$this->historySearch->eventText} " .
+        (Customer::getQualityTextByQuality($this->historySearch->getDetailOldValue('quality')) ?? "not set") . ' to ' .
+        (Customer::getQualityTextByQuality($this->historySearch->getDetailNewValue('quality')) ?? "not set");
+    }
 }

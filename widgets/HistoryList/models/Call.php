@@ -12,12 +12,24 @@ class Call extends Base
         return [
             'user' => $historySearch->user,
             'content' => $call->comment ?? '',
-            'body' =>  $this->getBody(),
+            'body' =>  $this->getBodyText(),
             'footerDatetime' => $historySearch->ins_ts,
             'footer' => isset($call->applicant) ? "Called <span>{$call->applicant->name}</span>" : null,
             'iconClass' => $this->getIconClass(),
             'iconIncome' => $this->getIconIncome(),
         ];
+    }
+
+    public function getBodyText(): string
+    {
+        $call = $this->historySearch->call;
+        if ($call === null) {
+            return '<i>Deleted</i>';
+        }
+        if (!$call->getTotalDisposition()) {
+            return $call->totalStatusText;
+        }
+        return $call->totalStatusText . ' <span class=\'text-grey\'>' . $call->getTotalDisposition() . '</span>';
     }
 
     private function getIconClass(): ?string
@@ -38,17 +50,5 @@ class Call extends Base
         }
 
         return $call->isAnswered() && $call->isIncoming();
-    }
-
-    private function getBody(): string
-    {
-        $call = $this->historySearch->call;
-        if ($call === null) {
-            return '<i>Deleted</i>';
-        }
-        if (!$call->getTotalDisposition()) {
-            return $call->totalStatusText;
-        }
-        return $call->totalStatusText . ' <span class=\'text-grey\'>' . $call->getTotalDisposition() . '</span>';
     }
 }

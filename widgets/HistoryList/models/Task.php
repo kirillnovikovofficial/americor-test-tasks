@@ -11,11 +11,16 @@ class Task extends Base
 
         return [
             'user' => $historySearch->user,
-            'body' => "$historySearch->eventText: " . ($task->title ?? ''),
+            'body' => $this->getBodyText(),
             'iconClass' => 'fa-check-square bg-yellow',
             'footerDatetime' => $historySearch->ins_ts,
             'footer' => isset($task->customerCreditor->name) ? "Creditor: " . $task->customerCreditor->name : ''
         ];
+    }
+
+    public function getBodyText(): string
+    {
+        return "{$this->historySearch->eventText}: " . ($this->historySearch->task->title ?? '');
     }
 
 }

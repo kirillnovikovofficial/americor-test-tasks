@@ -30,4 +30,9 @@ class Base implements ItemInterface
             'iconClass' => 'fa-gear bg-purple-light'
         ];
     }
+
+    public function getBodyText(): string
+    {
+        return '';
+    }
 }

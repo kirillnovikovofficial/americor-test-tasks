@@ -13,7 +13,7 @@ class Sms extends Base
 
         return [
             'user' => $historySearch->user,
-            'body' => $sms->message ?? '',
+            'body' => $this->getBodyText(),
             'footer' => $sms->isIncoming() ?
                 Yii::t('app', 'Incoming message from {number}', [
                     'number' => $sms->phone_from ?? ''
@@ -26,4 +26,8 @@ class Sms extends Base
         ];
     }
 
+    public function getBodyText(): string
+    {
+        return $sms->message ?? '';
+    }
 }

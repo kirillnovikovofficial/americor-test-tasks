@@ -14,7 +14,7 @@ class Fax extends Base
 
         return [
             'user' => $historySearch->user,
-            'body' => $historySearch->eventText . $this->getBodyDocument(),
+            'body' => $this->getBodyText() . $this->getBodyDocument(),
             'footer' => Yii::t('app', '{type} was sent to {group}', [
                 'type' => $fax ? $fax->getTypeText() : 'Fax',
                 'group' => isset($fax->creditorGroup) ? Html::a($fax->creditorGroup->name, ['creditors/groups'], ['data-pjax' => 0]) : ''
@@ -22,6 +22,11 @@ class Fax extends Base
             'footerDatetime' => $historySearch->ins_ts,
             'iconClass' => 'fa-fax bg-green'
         ];
+    }
+
+    public function getBodyText(): string
+    {
+        return $this->historySearch->eventText;
     }
 
     private function getBodyDocument(): string

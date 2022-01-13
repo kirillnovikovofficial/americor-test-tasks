@@ -11,4 +11,6 @@ interface ItemInterface
     public function getViewName(): string;
 
     public function getRenderParams(): array;
+
+    public function getBodyText(): string;
 }
